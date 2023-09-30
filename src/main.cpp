@@ -177,7 +177,11 @@ json get_diagnostics(std::string uri, std::string content,
                 std::string identifier = message_matches[1];
                 int identifier_length = message_matches[1].length();
                 auto source_pos = source_line.find(identifier);
-                start_char = source_pos;
+                if (source_pos != std::string::npos) {
+                    start_char = source_pos;
+                } else {
+                    start_char = 0;
+                }
                 end_char = source_pos + identifier_length - 1;
             } else {
                 // If we can't find a precise position, we'll just use the whole line.
